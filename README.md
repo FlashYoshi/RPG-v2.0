@@ -1,6 +1,6 @@
 Runrun's Persuasive Gordor
 ==========================
-Because <a href="https://github.com/FlashYoshi/RPG">RPG</a> wasn't written as good as I thought it was I tried creating something better.
+Because <a target="blank_" href="https://github.com/FlashYoshi/RPG">RPG</a> wasn't written as good as I thought it was I tried creating something better.
 This is the result. The older version has hereby been discontinued and all work will go into this new project.
 
 Plot (This time I actually have one)
