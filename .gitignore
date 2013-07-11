@@ -1,0 +1,6 @@
+#User Defined
+*.class
+/build
+/dist
+build.xml
+manifest.mf
