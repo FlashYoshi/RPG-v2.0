@@ -19,11 +19,11 @@ But you're always accompannied by some cute (usually annoying) little "thing". S
 
 TODO
 ====
-* Gather a load of art and animations for them.
-* Add more entities.
+* Display what blocks we're working on in the editor.
 * Implement saving and loading functionality for the editor.
 * Implement zoom function for the editor.
 * Create a dimension-asking screen when you select the editor.
 * Beautify EditorList.
-* Display what blocks we're working on in the editor.
+* Add more entities.
+* Gather a load of art and animations for them.
 * Implement the actual game.
