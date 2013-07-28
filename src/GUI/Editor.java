@@ -16,7 +16,6 @@ public class Editor {
     public Editor(JPanel panel) {
         /*TODO: Display Dimension-selection screen first*/
         JFrame frame = (JFrame) panel.getParent().getParent().getParent();
-        frame.setResizable(false);
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         Dimension panelSize = panel.getSize();
         WorldModel world = new WorldModel(128, 128);
@@ -25,5 +24,8 @@ public class Editor {
 
         panel.add(editPanel);
         panel.add(list);
+        frame.setResizable(false);
+        frame.pack();
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 }

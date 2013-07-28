@@ -20,7 +20,6 @@ But you're always accompannied by some cute (usually annoying) little "thing". S
 TODO
 ====
 * Gather a load of art and animations for them.
-* Fix the weird frame disforming caused by frame.setResizable(false);
 * Add more entities.
 * Implement saving and loading functionality for the editor.
 * Implement zoom function for the editor.
