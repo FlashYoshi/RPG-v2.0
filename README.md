@@ -17,6 +17,10 @@ He is somehow, after a long time of persuading his master, able to convince Runr
 The thing I did with this plot is the change the spot of the standardized main characters around. Usually you're a strong, courageous and young knight/teenager or just a weak little babby.
 But you're always accompannied by some cute (usually annoying) little "thing". So I just made the cute "thing" the main chararcter, whilst the young knight is the helper.
 
+DEPENDENCIES
+============
+* jdom-1.1.1
+
 TODO
 ====
 * Display what blocks we're working on in the editor.
