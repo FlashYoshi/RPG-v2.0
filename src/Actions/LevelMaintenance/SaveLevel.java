@@ -2,12 +2,10 @@ package Actions.LevelMaintenance;
 
 import Entities.Entity;
 import Models.WorldModel;
-import Util.Layer;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
@@ -31,7 +29,7 @@ public class SaveLevel extends AbstractAction {
     }
 
     @Override
-    public void actionPerformed(ActionEvent ev) {
+    public void actionPerformed(ActionEvent e) {
         Element root = new Element("Level1");
         Element size = new Element("Size");
         size.setAttribute("width", String.valueOf(world.getSize().width));
