@@ -1,6 +1,7 @@
 package GUI;
 
 import Actions.ButtonAction;
+import Engine.Game;
 import Entities.Entity;
 import Interfaces.Drawable;
 import MapsAndFactories.DrawMap;
@@ -39,17 +40,18 @@ public class EditorPanel extends JPanel implements MouseListener, ChangeListener
     private static final int TILE_SIZE = WorldModel.TILE_SIZE;
     private JList list;
 
-    public EditorPanel(Dimension d, WorldModel world, JList list) {
+    public EditorPanel(Dimension d, WorldModel world, JList list, Game game) {
         this.world = world;
         this.list = list;
         setPreferredSize(d);
         drawModel = DrawMap.getInstance();
-        buttonModel = new EditorModel(world.getSize());
+        buttonModel = new EditorModel(world.getSize(), game);
         setBackground(Color.LIGHT_GRAY);
 
         int width = (int) Math.ceil((d.width / TILE_SIZE) - 0.1);
         int height = (int) Math.ceil((d.height / TILE_SIZE) - 0.1);
         Viewport.getInstance().setViewport(0, 0, width, height);
+        game.setTitle(game.getTitle() + "   " + Viewport.getInstance().toString());
         buttonModel.setEditorDimension(new Dimension(d.width / TILE_SIZE, d.height / TILE_SIZE));
 
         setLayout(null);

@@ -43,8 +43,8 @@ public class OSAction extends AbstractAction {
             case (1):
                 preperation(e);
                 /*TODO: Create editor on panel*/
-                Editor edit = new Editor(panel);
                 game.setTitle("Level Editor v2.0 \u00a9 Titouan Vervack");
+                Editor edit = new Editor(panel, game);
                 break;
             case (2):
                 System.err.println("Exit has been called!");

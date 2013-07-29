@@ -23,7 +23,6 @@ Dependencies
 
 TODO
 ====
-* Display what blocks we're working on in the editor.
 * Implement file selection on save.
 * Implement load functionality for the editor.
 * Implement zoom function for the editor.

@@ -30,7 +30,7 @@ public class WorldModel {
 
     public WorldModel(Dimension worldSize) {
         if (worldSize.width % TILE_SIZE != 0
-                || worldSize.height % TILE_SIZE != 0){
+                || worldSize.height % TILE_SIZE != 0) {
             throw new IllegalArgumentException("Dimension have to be devisable by " + TILE_SIZE + ".");
         }
         this.world = worldSize;
@@ -49,16 +49,16 @@ public class WorldModel {
         return world;
     }
 
+    public Sea[][] getSea() {
+        return sea;
+    }
+
     public Entity[][] getBackground() {
         return background;
     }
 
     public Entity[][] getObstacles() {
         return obstacles;
-    }
-
-    public Sea[][] getSea() {
-        return sea;
     }
 
     /*Adds an entity to the corresponding layer and adds it to the draw list if

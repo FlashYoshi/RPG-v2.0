@@ -25,13 +25,13 @@ public class Viewport {
         end = new Point(x2, y2);
     }
 
-    public void setViewport(Point start, Point end){
+    public void setViewport(Point start, Point end) {
         this.start = start;
         this.end = end;
     }
 
     public Point inViewport(int x, int y) {
-        if((start.x <= x && start.y <= y) && (end.x >= x && end.y >= y)){
+        if ((start.x <= x && start.y <= y) && (end.x >= x && end.y >= y)) {
             Point mod = new Point(start.x - end.x, start.y - end.y);
             int paintX = (x % mod.x) * WorldModel.TILE_SIZE;
             int paintY = (y % mod.y) * WorldModel.TILE_SIZE;
@@ -40,5 +40,8 @@ public class Viewport {
         return null;
     }
 
-
+    @Override
+    public String toString() {
+        return "(" + start.x + ", " + start.y + ") - (" + end.x + ", " + end.y + ")";
+    }
 }

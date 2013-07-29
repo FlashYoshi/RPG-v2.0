@@ -2,7 +2,9 @@ package GUI;
 
 import Actions.LevelMaintenance.LoadLevel;
 import Actions.LevelMaintenance.SaveLevel;
+import Engine.Game;
 import Models.WorldModel;
+import Util.Viewport;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.io.File;
@@ -18,7 +20,7 @@ import javax.swing.JPanel;
  */
 public class Editor {
 
-    public Editor(JPanel panel) {
+    public Editor(JPanel panel, Game game) {
         /*TODO: Display Dimension-selection screen first*/
         JFrame frame = (JFrame) panel.getParent().getParent().getParent();
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
@@ -44,7 +46,7 @@ public class Editor {
         listPanel.add(buttonPanel, BorderLayout.NORTH);
         listPanel.add(list, BorderLayout.CENTER);
 
-        EditorPanel editPanel = new EditorPanel(new Dimension((int) (panelSize.width * 0.8), panelSize.height), world, list);
+        EditorPanel editPanel = new EditorPanel(new Dimension((int) (panelSize.width * 0.8), panelSize.height), world, list, game);
         panel.add(editPanel);
         panel.add(listPanel);
         

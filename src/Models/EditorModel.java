@@ -1,5 +1,6 @@
 package Models;
 
+import Engine.Game;
 import Util.Viewport;
 import java.awt.Dimension;
 
@@ -19,10 +20,12 @@ public class EditorModel extends TModel {
     private int maxWidth;
     private int maxHeight;
     private int change;
-
-    public EditorModel(Dimension worldSize) {
+    private Game game;
+    
+    public EditorModel(Dimension worldSize, Game game) {
         this.maxWidth = worldSize.width;
         this.maxHeight = worldSize.height;
+        this.game = game;
         XOffset = 0;
         YOffset = 0;
     }
@@ -34,6 +37,7 @@ public class EditorModel extends TModel {
             incY();
         }
         Viewport.getInstance().setViewport(getXOffset(), getYOffset(), getXOffset() + editWidth, getYOffset() + editHeight);
+        game.setTitle(game.getTitle().split("   ")[0] + "   " + Viewport.getInstance().toString());
     }
 
     private void incX() {
@@ -70,8 +74,8 @@ public class EditorModel extends TModel {
         } else {
             decY();
         }
-        System.out.println("(" + getXOffset() + "," + getYOffset() + ") (" + (getXOffset() + editWidth) + ", " + (getYOffset() + editHeight) + ")");
         Viewport.getInstance().setViewport(getXOffset(), getYOffset(), getXOffset() + editWidth, getYOffset() + editHeight);
+        game.setTitle(game.getTitle().split("   ")[0] + "   " + Viewport.getInstance().toString());
     }
 
     private void decX() {
