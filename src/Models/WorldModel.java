@@ -70,7 +70,6 @@ public class WorldModel {
         if (e == null) {
             return false;
         }
-        System.out.println("x: " + x + " y: " + y);
         e.setPosition(x, y);
         return checkAvailability(e);
     }

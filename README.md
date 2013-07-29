@@ -20,7 +20,8 @@ But you're always accompannied by some cute (usually annoying) little "thing". S
 TODO
 ====
 * Display what blocks we're working on in the editor.
-* Implement saving and loading functionality for the editor.
+* Implement file selection on save.
+* Implement load functionality for the editor.
 * Implement zoom function for the editor.
 * Create a dimension-asking screen when you select the editor.
 * Beautify EditorList.

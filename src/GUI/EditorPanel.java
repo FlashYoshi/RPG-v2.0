@@ -9,6 +9,7 @@ import Models.WorldModel;
 import Util.Layer;
 import Util.Viewport;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -35,9 +37,11 @@ public class EditorPanel extends JPanel implements MouseListener, ChangeListener
     private JButton[] buttons;
     private Bounds[] bounds;
     private static final int TILE_SIZE = WorldModel.TILE_SIZE;
+    private JList list;
 
-    public EditorPanel(Dimension d, WorldModel world) {
+    public EditorPanel(Dimension d, WorldModel world, JList list) {
         this.world = world;
+        this.list = list;
         setPreferredSize(d);
         drawModel = DrawMap.getInstance();
         buttonModel = new EditorModel(world.getSize());
@@ -112,13 +116,19 @@ public class EditorPanel extends JPanel implements MouseListener, ChangeListener
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        Entity cursor = world.getCursor();
-        if (cursor == null) {
-            return;
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            Entity cursor = world.getCursor();
+            if (cursor == null) {
+                return;
+            }
+            int x = (e.getX() / TILE_SIZE) + buttonModel.getXOffset();
+            int y = (e.getY() / TILE_SIZE) + buttonModel.getYOffset();
+            world.addEntity(cursor.toString(), x, y);
+        } else if (e.getButton() == MouseEvent.BUTTON3){
+            world.setCursor(null);
+            getParent().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            list.clearSelection();
         }
-        int x = (e.getX() / TILE_SIZE) + buttonModel.getXOffset();
-        int y = (e.getY() / TILE_SIZE) + buttonModel.getYOffset();
-        world.addEntity(cursor.toString(), x, y);
     }
 
     @Override
