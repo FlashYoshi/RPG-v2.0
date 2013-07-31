@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
+import javax.swing.JOptionPane;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.output.Format;
@@ -84,8 +85,9 @@ public class SaveLevel extends AbstractAction {
             writer = new FileWriter(file);
             serializer.setFormat(Format.getPrettyFormat());
             serializer.output(document, writer);
+            JOptionPane.showMessageDialog(null, "The file was saved succesfully at " + file.toString(), "File saved!", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
-            Logger.getLogger(SaveLevel.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "The save failed to succeed.\nAn error was encountered: " + ex, "Error!", JOptionPane.WARNING_MESSAGE);
         }
     }
 }
