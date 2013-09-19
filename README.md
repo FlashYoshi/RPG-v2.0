@@ -14,7 +14,7 @@ The humans have a good relationship with their owners, and they have their own r
 This makes his live at the Gurgur Kingdom quite hard because it's so boring. So Gordor decides he wants to go on an adventure.
 He is somehow, after a long time of persuading his master, able to convince Runrun to go on an adventure and leave the Kingdom, something no Gur ever does!
 
-The thing I did with this plot is the change the spot of the standardized main characters around. Usually you're a strong, courageous and young knight/teenager or just a weak little babby.
+The thing I did with this plot is to change the spot of the standardized main characters around. Usually you're a strong, courageous and young knight/teenager or just a weak little babby.
 But you're always accompannied by some cute (usually annoying) little "thing". So I just made the cute "thing" the main chararcter, whilst the young knight is the helper.
 
 Dependencies
