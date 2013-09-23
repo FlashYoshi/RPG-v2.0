@@ -71,7 +71,15 @@ public class WorldModel {
             return false;
         }
         e.setPosition(x, y);
-        return checkAvailability(e);
+        boolean result;
+        
+        if(result = checkAvailability(e)){
+            Layer layer = e.identify();
+            layers.get(layer)[x][y] = e;
+            DrawMap.getInstance().addToDraw(e, layer);
+        }         
+        System.out.println(result);
+        return result;
     }
 
     public Entity getCursor() {
@@ -91,8 +99,6 @@ public class WorldModel {
                 || (layer == Layer.BACKGROUND && placeHolder == null)/*Spot not taken*/
                 || (layer == Layer.OBSTACLE && (layers.get(Layer.BACKGROUND)[x][y] != null && placeHolder == null))/*There is a background but no obstacle yet*/
                 || layer == Layer.GUI) {
-            layers.get(layer)[x][y] = e;
-            DrawMap.getInstance().addToDraw(e, e.identify());
             return true;
         }
         return false;
