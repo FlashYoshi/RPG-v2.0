@@ -25,7 +25,7 @@ TODO
 ====
 * Implement file selection on save.
 * Implement load functionality for the editor.
-* Implement zoom function for the editor.
+* Implement buttons, grid redrawing and boolean in the model for the zooming function.
 * Create a dimension-asking screen when you select the editor.
 * Beautify EditorList.
 * Add more entities.

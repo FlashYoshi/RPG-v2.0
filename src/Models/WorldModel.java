@@ -78,7 +78,6 @@ public class WorldModel {
             layers.get(layer)[x][y] = e;
             DrawMap.getInstance().addToDraw(e, layer);
         }         
-        System.out.println(result);
         return result;
     }
 

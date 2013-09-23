@@ -1,12 +1,19 @@
 package Entities;
 
 import Interfaces.Drawable;
+import Models.WorldModel;
 import Util.Layer;
 import Util.Viewport;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
-import javax.swing.ImageIcon;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  * Representation of any and all "Blocks"
@@ -17,15 +24,20 @@ public class Entity implements Drawable {
 
     private Point pos;
     /*TODO: Delete the placeholder*/
-    private Image image = new ImageIcon(Grass.class.getResource("../images/Sand.png")).getImage();
+    private BufferedImage image;
     /*Counter for the sprite images*/
     private int spriteCount;
     protected boolean breakable = false;
     private Layer layer;
 
     public Entity(Layer layer) {
-        this.layer = layer;
-        pos = new Point(0,0);
+        try {
+            image = ImageIO.read(Grass.class.getResource("../images/Sand.png"));
+            this.layer = layer;
+            pos = new Point(0, 0);
+        } catch (IOException ex) {
+            Logger.getLogger(Entity.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public int getX() {
@@ -54,15 +66,20 @@ public class Entity implements Drawable {
         Point p;
         /*Check if we really have to draw*/
         if ((p = Viewport.getInstance().inViewport(pos.x, pos.y)) != null) {
-            g.drawImage(getSprite(), p.x, p.y, null);
+            int zoom = 1;
+            int zoomedSize = WorldModel.TILE_SIZE / zoom;
+            
+            /*Rescale the image depending on the zoomfactor*/
+            Image img = getSprite().getScaledInstance(zoomedSize, zoomedSize, Image.SCALE_DEFAULT);
+            g.drawImage(img, p.x, p.y, null);
         }
     }
 
-    public void setImage(Image image) {
+    public void setImage(BufferedImage image) {
         this.image = image;
     }
 
-    public Layer identify(){
+    public Layer identify() {
         return layer;
     }
 
@@ -75,13 +92,13 @@ public class Entity implements Drawable {
         return image;
     }
 
-    private Image getSprite() {
+    private BufferedImage getSprite() {
         /*TODO: Return sprite*/
         /*if (SpriteMap.getInstance().get(toString()).spritesAmount == spriteCount) {
-            spriteCount = 0;
-        } else {
-            spriteCount++;
-        }*/
+         spriteCount = 0;
+         } else {
+         spriteCount++;
+         }*/
         return image;
     }
 
