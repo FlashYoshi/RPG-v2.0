@@ -9,6 +9,7 @@ import javax.swing.event.ChangeListener;
 /**
  *
  * Model used for the editor
+ *
  * @param XOffset: The amount of screens we are from the far left edge
  * @param YOffset: The amount of screen we are from the top edge
  * @author FlashYoshi
@@ -26,8 +27,8 @@ public class EditorModel extends TModel implements ChangeListener {
     private WorldModel world;
     private int stdHeight;
     private int stdWidth;
-    
-    public EditorModel(Game game, WorldModel world){
+
+    public EditorModel(Game game, WorldModel world) {
         this.maxWidth = world.getSize().width;
         this.maxHeight = world.getSize().height;
         this.game = game;
@@ -37,11 +38,11 @@ public class EditorModel extends TModel implements ChangeListener {
         world.addListener(this);
     }
 
-    private void changeViewport(){
+    private void changeViewport() {
         Viewport.getInstance().setViewport(getXOffset(), getYOffset(), getXOffset() + editWidth, getYOffset() + editHeight);
         game.setTitle(game.getTitle().split("   ")[0] + "   " + Viewport.getInstance().toString());
     }
-    
+
     public void incrementOffset(String s) {
         if (s.equals("x")) {
             incX();
@@ -117,11 +118,11 @@ public class EditorModel extends TModel implements ChangeListener {
     }
 
     public int getXOffset() {
-        return XOffset * editWidth;
+        return XOffset * (editWidth / world.getZoom());
     }
 
     public int getYOffset() {
-        return YOffset * editHeight;
+        return YOffset * (editHeight / world.getZoom());
     }
 
     public void setEditorDimension(Dimension d) {
@@ -129,7 +130,7 @@ public class EditorModel extends TModel implements ChangeListener {
         editHeight = d.height;
         stdWidth = editWidth;
         stdHeight = editHeight;
-        
+
         maxWidth /= editWidth;
         maxHeight /= editHeight;
     }
@@ -137,11 +138,15 @@ public class EditorModel extends TModel implements ChangeListener {
     public int getChange() {
         return change;
     }
-    
+
     @Override
     public void stateChanged(ChangeEvent e) {
-        editWidth = stdWidth * world.getZoom();
-        editHeight = stdHeight * world.getZoom();
-        changeViewport();
+        if ((stdWidth * world.getZoom() < world.getSize().width) && (stdHeight * world.getZoom() < world.getSize().height)) {
+            editWidth = stdWidth * world.getZoom();
+            editHeight = stdHeight * world.getZoom();
+            changeViewport();
+        } else {
+            world.decZoom();
+        }
     }
 }

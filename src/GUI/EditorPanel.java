@@ -53,7 +53,7 @@ public class EditorPanel extends JPanel implements MouseListener, ChangeListener
         int height = (int) Math.ceil((d.height / TILE_SIZE) - 0.1);
         Viewport.getInstance().setViewport(0, 0, width, height);
         game.setTitle(game.getTitle() + "   " + Viewport.getInstance().toString());
-        buttonModel.setEditorDimension(new Dimension(d.width / TILE_SIZE, d.height / TILE_SIZE));
+        buttonModel.setEditorDimension(new Dimension(width, height));
 
         setLayout(null);
         initializeButtons(d);
