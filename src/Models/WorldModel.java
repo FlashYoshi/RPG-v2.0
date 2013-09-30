@@ -23,6 +23,7 @@ public class WorldModel {
     private Dimension world;
     private HashMap<Layer, Entity[][]> layers;
     private Entity selected;
+    private int zoom;
 
     public WorldModel(int width, int height) {
         this(new Dimension(width, height));
@@ -31,9 +32,10 @@ public class WorldModel {
     public WorldModel(Dimension worldSize) {
         if (worldSize.width % TILE_SIZE != 0
                 || worldSize.height % TILE_SIZE != 0) {
-            throw new IllegalArgumentException("Dimension have to be devisable by " + TILE_SIZE + ".");
+            throw new IllegalArgumentException("Dimension has to be devisable by " + TILE_SIZE + ".");
         }
         this.world = worldSize;
+        zoom = 1;
         background = new Entity[worldSize.height][worldSize.width];
         obstacles = new Entity[worldSize.height][worldSize.width];
         sea = new Sea[worldSize.height][worldSize.width];
@@ -43,6 +45,21 @@ public class WorldModel {
         layers.put(Layer.SEA, sea);
         layers.put(Layer.BACKGROUND, background);
         layers.put(Layer.OBSTACLE, obstacles);
+
+    }
+
+    public int getZoom() {
+        return zoom;
+    }
+
+    public void incZoom() {
+        zoom *= 2;
+    }
+
+    public void decZoom() {
+        if (zoom > 1) {
+            zoom /= 2;
+        }
     }
 
     public Dimension getSize() {
@@ -72,12 +89,13 @@ public class WorldModel {
         }
         e.setPosition(x, y);
         boolean result;
-        
-        if(result = checkAvailability(e)){
+
+        if (result = checkAvailability(e)) {
             Layer layer = e.identify();
             layers.get(layer)[x][y] = e;
             DrawMap.getInstance().addToDraw(e, layer);
-        }         
+            e.setModel(this);
+        }
         return result;
     }
 

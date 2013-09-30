@@ -1,6 +1,7 @@
 package GUI;
 
-import Actions.ButtonAction;
+import Actions.ArrowButtonAction;
+import Actions.ZoomButtonAction;
 import Engine.Game;
 import Entities.Entity;
 import Interfaces.Drawable;
@@ -64,21 +65,19 @@ public class EditorPanel extends JPanel implements MouseListener, ChangeListener
         buttons = new JButton[]{new JButton(getArrowSprite("Bottom")),
             new JButton(getArrowSprite("Top")),
             new JButton(getArrowSprite("Left")),
-            new JButton(getArrowSprite("Right"))
-        };
+            new JButton(getArrowSprite("Right")),};
         bounds = new Bounds[]{new Bounds(d.width / 2, d.height - 32, 64, 32),
             new Bounds(d.width / 2, 0, 64, 32),
             new Bounds(0, (d.height / 2) - 32, 32, 64),
-            new Bounds(d.width - 32, (d.height / 2) - 32, 32, 64)
-        };
-        ButtonAction action = new ButtonAction(buttonModel);
+            new Bounds(d.width - 32, (d.height / 2) - 32, 32, 64),};
+        ArrowButtonAction action = new ArrowButtonAction(buttonModel);
 
         buttons[1].setEnabled(false);
         buttons[2].setEnabled(false);
         buttons[1].setVisible(false);
         buttons[2].setVisible(false);
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < buttons.length; i++) {
             JButton button = buttons[i];
             add(button);
             button.addActionListener(action);
@@ -87,10 +86,33 @@ public class EditorPanel extends JPanel implements MouseListener, ChangeListener
             Bounds b = bounds[i];
             button.setBounds(b.x, b.y, b.width, b.height);
         }
+        
+        ZoomButtonAction zoomAction = new ZoomButtonAction(world);
+        
+        JButton[] zoomButtons = {
+            new JButton(getZoomSprite("-")),
+            new JButton(getZoomSprite("+"))};
+        Bounds[] zoomBounds = {
+            new Bounds(d.width - 32, (d.height / 4) - 32, 32, 32),
+            new Bounds(d.width - 32, (d.height / 4) - 64, 32, 32)};
+        
+        for (int i = 0; i < zoomButtons.length; i++) {
+            JButton button = zoomButtons[i];
+            add(button);
+            button.addActionListener(zoomAction);
+            button.setContentAreaFilled(false);
+            button.setBorder(null);
+            Bounds b = zoomBounds[i];
+            button.setBounds(b.x, b.y, b.width, b.height);
+        }
     }
 
     private ImageIcon getArrowSprite(String s) {
         return new ImageIcon(EditorPanel.class.getResource("../images/" + s + "Arrow.png"));
+    }
+
+    private ImageIcon getZoomSprite(String s) {
+        return new ImageIcon(EditorPanel.class.getResource("../images/" + s + ".png"));
     }
 
     @Override
@@ -107,11 +129,12 @@ public class EditorPanel extends JPanel implements MouseListener, ChangeListener
 
     private void drawGrid(Graphics g) {
         int tile = TILE_SIZE;
-        for (int i = tile; i < getHeight(); i += tile) {
+        int zoom = (int) (tile / world.getZoom());
+        for (int i = zoom; i < getHeight(); i += zoom) {
             g.drawLine(0, i, getWidth(), i);
         }
 
-        for (int i = tile; i < getWidth(); i += tile) {
+        for (int i = zoom; i < getWidth(); i += zoom) {
             g.drawLine(i, 0, i, getHeight());
         }
     }
@@ -126,7 +149,7 @@ public class EditorPanel extends JPanel implements MouseListener, ChangeListener
             int x = (e.getX() / TILE_SIZE) + buttonModel.getXOffset();
             int y = (e.getY() / TILE_SIZE) + buttonModel.getYOffset();
             world.addEntity(cursor.toString(), x, y);
-        } else if (e.getButton() == MouseEvent.BUTTON3){
+        } else if (e.getButton() == MouseEvent.BUTTON3) {
             world.setCursor(null);
             getParent().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             list.clearSelection();

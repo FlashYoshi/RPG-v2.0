@@ -4,12 +4,10 @@ import Interfaces.Drawable;
 import Models.WorldModel;
 import Util.Layer;
 import Util.Viewport;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +27,7 @@ public class Entity implements Drawable {
     private int spriteCount;
     protected boolean breakable = false;
     private Layer layer;
+    private WorldModel world;
 
     public Entity(Layer layer) {
         try {
@@ -66,8 +65,7 @@ public class Entity implements Drawable {
         Point p;
         /*Check if we really have to draw*/
         if ((p = Viewport.getInstance().inViewport(pos.x, pos.y)) != null) {
-            int zoom = 1;
-            int zoomedSize = WorldModel.TILE_SIZE / zoom;
+            int zoomedSize = WorldModel.TILE_SIZE / world.getZoom();
             
             /*Rescale the image depending on the zoomfactor*/
             Image img = getSprite().getScaledInstance(zoomedSize, zoomedSize, Image.SCALE_DEFAULT);
@@ -105,5 +103,9 @@ public class Entity implements Drawable {
     @Override
     public String toString() {
         return "Entity";
+    }
+
+    public void setModel(WorldModel world) {
+        this.world = world;
     }
 }
