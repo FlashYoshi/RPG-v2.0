@@ -65,11 +65,12 @@ public class Entity implements Drawable {
         Point p;
         /*Check if we really have to draw*/
         if ((p = Viewport.getInstance().inViewport(pos.x, pos.y)) != null) {
-            int zoomedSize = WorldModel.TILE_SIZE / world.getZoom();
+            int zoom = world.getZoom();
+            int zoomedSize = WorldModel.TILE_SIZE / zoom;
             
             /*Rescale the image depending on the zoomfactor*/
             Image img = getSprite().getScaledInstance(zoomedSize, zoomedSize, Image.SCALE_DEFAULT);
-            g.drawImage(img, p.x, p.y, null);
+            g.drawImage(img, p.x / zoom, p.y / zoom, null);
         }
     }
 

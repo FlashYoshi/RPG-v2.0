@@ -13,7 +13,7 @@ import java.util.HashMap;
  *
  * @author FlashYoshi
  */
-public class WorldModel {
+public class WorldModel extends TModel {
 
     public static final int TILE_SIZE = 64;
     private EntityFactory entities;
@@ -54,11 +54,13 @@ public class WorldModel {
 
     public void incZoom() {
         zoom *= 2;
+        fireStateChanged();
     }
 
     public void decZoom() {
         if (zoom > 1) {
             zoom /= 2;
+            fireStateChanged();
         }
     }
 

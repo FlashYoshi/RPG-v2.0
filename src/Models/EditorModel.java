@@ -3,6 +3,8 @@ package Models;
 import Engine.Game;
 import Util.Viewport;
 import java.awt.Dimension;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -11,7 +13,7 @@ import java.awt.Dimension;
  * @param YOffset: The amount of screen we are from the top edge
  * @author FlashYoshi
  */
-public class EditorModel extends TModel {
+public class EditorModel extends TModel implements ChangeListener {
 
     private int XOffset;
     private int YOffset;
@@ -21,23 +23,32 @@ public class EditorModel extends TModel {
     private int maxHeight;
     private int change;
     private Game game;
+    private WorldModel world;
+    private int stdHeight;
+    private int stdWidth;
     
-    public EditorModel(Dimension worldSize, Game game) {
-        this.maxWidth = worldSize.width;
-        this.maxHeight = worldSize.height;
+    public EditorModel(Game game, WorldModel world){
+        this.maxWidth = world.getSize().width;
+        this.maxHeight = world.getSize().height;
         this.game = game;
+        this.world = world;
         XOffset = 0;
         YOffset = 0;
+        world.addListener(this);
     }
 
+    private void changeViewport(){
+        Viewport.getInstance().setViewport(getXOffset(), getYOffset(), getXOffset() + editWidth, getYOffset() + editHeight);
+        game.setTitle(game.getTitle().split("   ")[0] + "   " + Viewport.getInstance().toString());
+    }
+    
     public void incrementOffset(String s) {
         if (s.equals("x")) {
             incX();
         } else {
             incY();
         }
-        Viewport.getInstance().setViewport(getXOffset(), getYOffset(), getXOffset() + editWidth, getYOffset() + editHeight);
-        game.setTitle(game.getTitle().split("   ")[0] + "   " + Viewport.getInstance().toString());
+        changeViewport();
     }
 
     private void incX() {
@@ -74,8 +85,7 @@ public class EditorModel extends TModel {
         } else {
             decY();
         }
-        Viewport.getInstance().setViewport(getXOffset(), getYOffset(), getXOffset() + editWidth, getYOffset() + editHeight);
-        game.setTitle(game.getTitle().split("   ")[0] + "   " + Viewport.getInstance().toString());
+        changeViewport();
     }
 
     private void decX() {
@@ -117,11 +127,21 @@ public class EditorModel extends TModel {
     public void setEditorDimension(Dimension d) {
         editWidth = d.width;
         editHeight = d.height;
+        stdWidth = editWidth;
+        stdHeight = editHeight;
+        
         maxWidth /= editWidth;
         maxHeight /= editHeight;
     }
 
     public int getChange() {
         return change;
+    }
+    
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        editWidth = stdWidth * world.getZoom();
+        editHeight = stdHeight * world.getZoom();
+        changeViewport();
     }
 }

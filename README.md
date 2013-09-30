@@ -25,9 +25,8 @@ TODO
 ====
 * Implement file selection on save.
 * Implement load functionality for the editor.
-* Implement buttons, grid redrawing and boolean in the model for the zooming function.
 * Create a dimension-asking screen when you select the editor.
-* Beautify EditorList.
+* Refactor and clean up code.
 * Add more entities.
 * Gather a load of art and animations for them.
 * Implement the actual game.

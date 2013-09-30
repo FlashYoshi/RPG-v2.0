@@ -1,6 +1,8 @@
 package Actions;
 
+import Models.EditorModel;
 import Models.WorldModel;
+import Util.Viewport;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;

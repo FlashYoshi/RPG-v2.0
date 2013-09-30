@@ -46,7 +46,7 @@ public class EditorPanel extends JPanel implements MouseListener, ChangeListener
         this.list = list;
         setPreferredSize(d);
         drawModel = DrawMap.getInstance();
-        buttonModel = new EditorModel(world.getSize(), game);
+        buttonModel = new EditorModel(game, world);
         setBackground(Color.LIGHT_GRAY);
 
         int width = (int) Math.ceil((d.width / TILE_SIZE) - 0.1);
@@ -146,8 +146,8 @@ public class EditorPanel extends JPanel implements MouseListener, ChangeListener
             if (cursor == null) {
                 return;
             }
-            int x = (e.getX() / TILE_SIZE) + buttonModel.getXOffset();
-            int y = (e.getY() / TILE_SIZE) + buttonModel.getYOffset();
+            int x = (e.getX() / (TILE_SIZE / world.getZoom())) + buttonModel.getXOffset();
+            int y = (e.getY() / (TILE_SIZE / world.getZoom())) + buttonModel.getYOffset();
             world.addEntity(cursor.toString(), x, y);
         } else if (e.getButton() == MouseEvent.BUTTON3) {
             world.setCursor(null);
