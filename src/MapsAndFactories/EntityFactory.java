@@ -2,6 +2,7 @@ package MapsAndFactories;
 
 import Entities.Entity;
 import Entities.Grass;
+import Entities.Sand;
 import Entities.Sea;
 import Entities.Tree;
 
@@ -24,6 +25,8 @@ public class EntityFactory {
                 return new Sea();
             case "Grass":
                 return new Grass();
+            case "Sand":
+                return new Sand();
             case "Tree":
                 return new Tree();
             default:
@@ -31,8 +34,8 @@ public class EntityFactory {
         }
     }
 
-    public Entity[] getAll(){
-        return new Entity[]{new Sea(), new Grass(), new Tree()};
+    public Entity[] getAll() {
+        return new Entity[]{new Sea(), new Grass(), new Sand(), new Tree()};
     }
 
     public static EntityFactory getInstance() {

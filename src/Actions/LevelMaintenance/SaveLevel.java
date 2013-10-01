@@ -75,7 +75,7 @@ public class SaveLevel extends AbstractAction {
                 }
             }
         }
-        
+
         try {
             Document document = new Document(root);
             XMLOutputter serializer = new XMLOutputter();

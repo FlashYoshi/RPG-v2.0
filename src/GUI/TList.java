@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 /**
  * WARNING: Be sure you don't need any of your old keylisteners whilst using the
  * TList, it wil temporarily disable them. WARNING: Be sure you don't need the
- * enter key either, this key will also temporarily be disabled.
- * DESTRUCTOR: Don't forget to call detach() when you're done with the list
+ * enter key either, this key will also temporarily be disabled. DESTRUCTOR:
+ * Don't forget to call detach() when you're done with the list
  *
  * @author FlashYoshi
  */
@@ -62,6 +62,7 @@ public class TList extends KeyAdapter implements Drawable {
         this.unselectedColor = unselectedColor;
     }
 
+    @Override
     public void draw(Graphics2D g) {
         Font font = new Font(g.getFont().getFontName(), 0, FONT_SIZE);
         g.setFont(font);

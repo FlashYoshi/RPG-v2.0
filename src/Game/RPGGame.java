@@ -50,7 +50,7 @@ public class RPGGame extends Game {
     @Override
     public void draw(Graphics2D g) {
         /*Draw everything in order*/
-        for (Entry<Layer, ArrayList<Drawable>> entry : model.getToDraw().entrySet()){
+        for (Entry<Layer, ArrayList<Drawable>> entry : model.getToDraw().entrySet()) {
             for (Drawable d : entry.getValue()) {
                 d.draw(g);
             }

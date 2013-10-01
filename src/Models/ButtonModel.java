@@ -40,7 +40,7 @@ public class ButtonModel {
     public void Xscroll(int side) {
         if (checkXscroll(side)) {
             XOffset += side * panelSize.width / world.getTileSize();
-            if(XOffset < 0){
+            if (XOffset < 0) {
                 XOffset = 0;
             }
         }
@@ -71,7 +71,7 @@ public class ButtonModel {
     public void Yscroll(int side) {
         if (checkYscroll(side)) {
             YOffset += side * panelSize.height / world.getTileSize();
-            if(YOffset < 0){
+            if (YOffset < 0) {
                 YOffset = 0;
             }
         }

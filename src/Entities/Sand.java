@@ -6,14 +6,14 @@ import Util.Layer;
  *
  * @author FlashYoshi
  */
-public class Grass extends Entity {
+public class Sand extends Entity {
 
-    public Grass() {
+    public Sand() {
         super(Layer.BACKGROUND);
     }
 
     @Override
     public String toString() {
-        return "Grass";
+        return "Sand";
     }
 }

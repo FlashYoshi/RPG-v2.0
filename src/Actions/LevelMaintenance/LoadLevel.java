@@ -11,11 +11,12 @@ import javax.swing.AbstractAction;
 public class LoadLevel extends AbstractAction {
 
     private WorldModel world;
-    
-    public LoadLevel(WorldModel world){
+
+    public LoadLevel(WorldModel world) {
         this.world = world;
     }
-    
+
     @Override
-    public void actionPerformed(ActionEvent e) {}
+    public void actionPerformed(ActionEvent e) {
+    }
 }

@@ -15,7 +15,7 @@ public class ButtonAction extends AbstractAction {
 
     private ButtonModel model;
     private WorldModel world;
-    
+
     public ButtonAction(ButtonModel model, WorldModel world) {
         this.model = model;
         this.world = world;
@@ -25,7 +25,7 @@ public class ButtonAction extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
         JButton button = (JButton) e.getSource();
         String buttonName = parseName(button.toString());
-        switch(buttonName){
+        switch (buttonName) {
             case "BottomArrow":
                 model.Yscroll(1);
                 break;

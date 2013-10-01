@@ -41,10 +41,10 @@ public class Viewport {
         return null;
     }
 
-    public void setWorld(WorldModel world){
+    public void setWorld(WorldModel world) {
         this.world = world;
     }
-    
+
     @Override
     public String toString() {
         return "(" + start.x + ", " + start.y + ") - (" + end.x + ", " + end.y + ")";

@@ -49,8 +49,8 @@ public class DrawMap {
         toDraw.get(l).remove(d);
     }
 
-    public void reset(){
-        for (Map.Entry<Layer, ArrayList<Drawable>> entry : toDraw.entrySet()){
+    public void reset() {
+        for (Map.Entry<Layer, ArrayList<Drawable>> entry : toDraw.entrySet()) {
             entry.getValue().clear();
         }
     }

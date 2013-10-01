@@ -8,12 +8,12 @@ import Util.Layer;
  */
 public class Sea extends Entity {
 
-    public Sea(){
+    public Sea() {
         super(Layer.SEA);
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Sea";
     }
 }

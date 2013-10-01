@@ -10,8 +10,8 @@ import javax.swing.AbstractAction;
 import javax.swing.JPanel;
 
 /**
- * The required action for TList. It will create the EditorPanel, show that
- * the actual game isn't implemented yet or just exit.
+ * The required action for TList. It will create the EditorPanel, show that the
+ * actual game isn't implemented yet or just exit.
  *
  * @author FlashYoshi
  */

@@ -26,7 +26,7 @@ public class SpriteMap {
         return sprites.get(s);
     }
 
-    public static SpriteMap getInstance(){
+    public static SpriteMap getInstance() {
         return map;
     }
 }

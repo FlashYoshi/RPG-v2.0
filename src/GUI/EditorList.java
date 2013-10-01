@@ -4,7 +4,6 @@ import Entities.Entity;
 import MapsAndFactories.EntityFactory;
 import Models.WorldModel;
 import java.awt.Cursor;
-import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
