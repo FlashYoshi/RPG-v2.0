@@ -1,6 +1,7 @@
 package Actions;
 
-import Models.EditorModel;
+import Models.ButtonModel;
+import Models.WorldModel;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -10,12 +11,14 @@ import javax.swing.JButton;
  *
  * @author FlashYoshi
  */
-public class ArrowButtonAction extends AbstractAction {
+public class ButtonAction extends AbstractAction {
 
-    private EditorModel model;
-
-    public ArrowButtonAction(EditorModel model) {
+    private ButtonModel model;
+    private WorldModel world;
+    
+    public ButtonAction(ButtonModel model, WorldModel world) {
         this.model = model;
+        this.world = world;
     }
 
     @Override
@@ -23,17 +26,23 @@ public class ArrowButtonAction extends AbstractAction {
         JButton button = (JButton) e.getSource();
         String buttonName = parseName(button.toString());
         switch(buttonName){
-            case "Bottom":
-                model.incrementOffset("y");
+            case "BottomArrow":
+                model.Yscroll(1);
                 break;
-            case "Top":
-                model.decrementOffset("y");
+            case "TopArrow":
+                model.Yscroll(-1);
                 break;
-            case "Left":
-                model.decrementOffset("x");
+            case "LeftArrow":
+                model.Xscroll(-1);
                 break;
-            case "Right":
-                model.incrementOffset("x");
+            case "RightArrow":
+                model.Xscroll(1);
+                break;
+            case "-":
+                world.zoomOut();
+                break;
+            case "+":
+                world.zoomIn();
                 break;
             default:
                 System.err.println("Button action encountered a weird name!\nHere it is: " + buttonName);
@@ -44,6 +53,6 @@ public class ArrowButtonAction extends AbstractAction {
     private String parseName(String s) {
         /*Split the path independent of the OS*/
         String[] splitted = s.split("[/\\\\]");
-        return splitted[splitted.length - 1].split("Arrow")[0];
+        return splitted[splitted.length - 1].split(".png")[0];
     }
 }
