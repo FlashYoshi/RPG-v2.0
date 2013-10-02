@@ -1,6 +1,7 @@
 package Entities;
 
 import Interfaces.Drawable;
+import MapsAndFactories.SpriteMap;
 import Models.WorldModel;
 import Util.Layer;
 import Util.Viewport;
@@ -8,10 +9,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  * Representation of any and all "Blocks"
@@ -22,7 +19,7 @@ public class Entity implements Drawable {
 
     private Point pos;
     /*TODO: Delete the placeholder*/
-    private BufferedImage image;
+    protected BufferedImage image;
     /*Counter for the sprite images*/
     private int spriteCount;
     protected boolean breakable = false;
@@ -30,13 +27,8 @@ public class Entity implements Drawable {
     private WorldModel world;
 
     public Entity(Layer layer) {
-        try {
-            image = ImageIO.read(Grass.class.getResource("../images/Sand.png"));
-            this.layer = layer;
-            pos = new Point(0, 0);
-        } catch (IOException ex) {
-            Logger.getLogger(Entity.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.layer = layer;
+        pos = new Point(0, 0);
     }
 
     public int getX() {
@@ -85,7 +77,7 @@ public class Entity implements Drawable {
 
     public Image getAvatar() {
         /*TODO: return first sprite*/
-        return image;
+        return getSprite();
     }
 
     private BufferedImage getSprite() {
@@ -95,6 +87,9 @@ public class Entity implements Drawable {
          } else {
          spriteCount++;
          }*/
+        if (image == null) {
+            image = SpriteMap.getInstance().get(toString()).image;
+        }
         return image;
     }
 

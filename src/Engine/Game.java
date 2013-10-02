@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author Titouan Vervack
+ * @author FlashYoshi
  */
 public abstract class Game {
 

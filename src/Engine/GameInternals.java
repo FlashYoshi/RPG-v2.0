@@ -2,7 +2,7 @@ package Engine;
 
 /**
  *
- * @author Titouan Vervack
+ * @author FlashYoshi
  */
 public class GameInternals implements Runnable {
 

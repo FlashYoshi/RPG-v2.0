@@ -36,6 +36,8 @@ public class EditorPanel extends JPanel implements MouseListener {
     private JButton[] buttons;
     private Bounds[] bounds;
     private JList list;
+    private int xDrag;
+    private int yDrag;
 
     public EditorPanel(Dimension d, WorldModel world, JList list, Game game) {
         this.world = world;
@@ -111,7 +113,7 @@ public class EditorPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
+        /*if (e.getButton() == MouseEvent.BUTTON1) {
             Entity cursor = world.getCursor();
             if (cursor == null) {
                 return;
@@ -125,15 +127,52 @@ public class EditorPanel extends JPanel implements MouseListener {
             world.setCursor(null);
             getParent().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             list.clearSelection();
-        }
+        }*/
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+        xDrag = (e.getX() / world.getTileSize()) + buttonModel.getXOffset();
+        yDrag = (e.getY() / world.getTileSize()) + buttonModel.getYOffset();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            Entity cursor = world.getCursor();
+            if (cursor == null) {
+                return;
+            }
+
+            int x = (e.getX() / world.getTileSize()) + buttonModel.getXOffset();
+            int y = (e.getY() / world.getTileSize()) + buttonModel.getYOffset();
+
+            //Vertical dragging
+            if (x == xDrag) {
+                int biggest = (y > yDrag) ? y : yDrag;
+                int smallest = (y < yDrag) ? y : yDrag;
+                for (int i = smallest; i <= biggest; i++) {
+                    if (x < Viewport.getInstance().end.x && i < Viewport.getInstance().end.y) {
+                        world.addEntity(cursor.toString(), x, i);
+                    }
+
+                }
+            } //Horizontal dragging 
+            else if (y == yDrag) {
+                int biggest = (x > xDrag) ? x : xDrag;
+                int smallest = (x < xDrag) ? x : xDrag;
+                for (int i = smallest; i <= biggest; i++) {
+                    if (i < Viewport.getInstance().end.x && y < Viewport.getInstance().end.y) {
+                        world.addEntity(cursor.toString(), i, y);
+                    }
+
+                }
+            }
+        } else if (e.getButton() == MouseEvent.BUTTON3) {
+            world.setCursor(null);
+            getParent().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            list.clearSelection();
+        }
     }
 
     @Override

@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Titouan Vervack
+ * @author FlashYoshi
  */
 public class GamePanel extends JPanel {
 

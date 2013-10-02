@@ -5,7 +5,7 @@ import javax.swing.SwingUtilities;
 
 /**
  *
- * @author Titouan Vervack
+ * @author FlashYoshi
  */
 public class GameStarter {
 
