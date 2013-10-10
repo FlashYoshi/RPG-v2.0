@@ -23,9 +23,9 @@ Dependencies
 
 TODO
 ====
-* Implement file selection on save.
 * Implement load functionality for the editor.
 * Create a dimension-asking screen when you select the editor.
+* Improve performance.
 * Add more entities.
 * Gather a load of art and animations for them.
 * Implement the actual game.

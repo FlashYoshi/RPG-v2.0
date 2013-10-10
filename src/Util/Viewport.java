@@ -33,9 +33,8 @@ public class Viewport {
 
     public Point inViewport(int x, int y) {
         if ((start.x <= x && start.y <= y) && (end.x >= x && end.y >= y)) {
-            Point mod = new Point(start.x - end.x, start.y - end.y);
-            int paintX = (x % mod.x) * world.getTileSize();
-            int paintY = (y % mod.y) * world.getTileSize();
+            int paintX = (x - start.x) * world.getTileSize();
+            int paintY = (y - start.y) * world.getTileSize();
             return new Point(paintX, paintY);
         }
         return null;

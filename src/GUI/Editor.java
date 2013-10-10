@@ -6,7 +6,6 @@ import Engine.Game;
 import Models.WorldModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.io.File;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -33,7 +32,7 @@ public class Editor {
         EditorList list = new EditorList(world);
 
         JButton save = new JButton("Save");
-        save.addActionListener(new SaveLevel(new File("D:/uma.lvl"), world));
+        save.addActionListener(new SaveLevel(world));
         JButton load = new JButton("Load");
         load.addActionListener(new LoadLevel(world));
         JPanel buttonPanel = new JPanel();
