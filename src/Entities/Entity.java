@@ -19,15 +19,17 @@ public class Entity implements Drawable {
 
     private Point pos;
     /*TODO: Delete the placeholder*/
-    protected BufferedImage image;
+    protected Image image;
     /*Counter for the sprite images*/
     private int spriteCount;
+    private int tileSize;
     protected boolean breakable = false;
     private Layer layer;
     private WorldModel world;
 
     public Entity(Layer layer) {
         this.layer = layer;
+        tileSize = WorldModel.STD_TILE_SIZE;
         pos = new Point(0, 0);
     }
 
@@ -58,8 +60,7 @@ public class Entity implements Drawable {
         /*Check if we really have to draw*/
         if ((p = Viewport.getInstance().inViewport(pos.x, pos.y)) != null) {
             /*Rescale the image depending on the zoomfactor*/
-            Image img = getSprite().getScaledInstance(world.getTileSize(), world.getTileSize(), Image.SCALE_DEFAULT);
-            g.drawImage(img, p.x, p.y, null);
+            g.drawImage(getSprite(), p.x, p.y, null);
         }
     }
 
@@ -77,10 +78,10 @@ public class Entity implements Drawable {
 
     public Image getAvatar() {
         /*TODO: return first sprite*/
-        return getSprite();
+        return SpriteMap.getInstance().get(toString()).image;
     }
 
-    private BufferedImage getSprite() {
+    private Image getSprite() {
         /*TODO: Return sprite*/
         /*if (SpriteMap.getInstance().get(toString()).spritesAmount == spriteCount) {
          spriteCount = 0;
@@ -89,6 +90,15 @@ public class Entity implements Drawable {
          }*/
         if (image == null) {
             image = SpriteMap.getInstance().get(toString()).image;
+        }
+        if (tileSize > world.getTileSize()) {
+            tileSize = world.getTileSize();
+            image = image.getScaledInstance(tileSize, tileSize, Image.SCALE_DEFAULT);
+        } else if (tileSize < world.getTileSize()) {
+            tileSize = world.getTileSize();
+            //Reset img to conquer quality loss!
+            image = SpriteMap.getInstance().get(toString()).image;
+            image = image.getScaledInstance(tileSize, tileSize, Image.SCALE_DEFAULT);
         }
         return image;
     }
