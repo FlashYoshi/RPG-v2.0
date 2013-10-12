@@ -25,13 +25,13 @@ import java.util.Map.Entry;
 public class RPGGame extends Game {
 
     private final TList tList;
-    private DrawMap model;
+    private DrawMap drawMap;
     private static final Dimension MIN_SIZE = new Dimension(800, 600);
 
     public RPGGame(String title) {
         super(title);
 
-        model = DrawMap.getInstance();
+        drawMap = DrawMap.getInstance();
         String[] choices = new String[3];
         choices[0] = "Start the Game";
         choices[1] = "Open the Editor";
@@ -39,7 +39,7 @@ public class RPGGame extends Game {
         GamePanel panel = new GamePanel(this);
         getFrame().setMinimumSize(MIN_SIZE);
         tList = new TList(panel, choices, new OSAction(this));
-        model.addToDraw(tList, Layer.GUI);
+        drawMap.addToDraw(tList, Layer.GUI);
         GameStarter.start(this, panel);
     }
 
@@ -50,7 +50,7 @@ public class RPGGame extends Game {
     @Override
     public void draw(Graphics2D g) {
         /*Draw everything in order*/
-        for (Entry<Layer, ArrayList<Drawable>> entry : model.getToDraw().entrySet()) {
+        for (Entry<Layer, ArrayList<Drawable>> entry : drawMap.getToDraw().entrySet()) {
             for (Drawable d : entry.getValue()) {
                 d.draw(g);
             }

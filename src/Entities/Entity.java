@@ -31,6 +31,7 @@ public class Entity implements Drawable {
         this.layer = layer;
         tileSize = WorldModel.STD_TILE_SIZE;
         pos = new Point(0, 0);
+        image = SpriteMap.getInstance().get(toString()).image;
     }
 
     public int getX() {
@@ -78,7 +79,7 @@ public class Entity implements Drawable {
 
     public Image getAvatar() {
         /*TODO: return first sprite*/
-        return SpriteMap.getInstance().get(toString()).image;
+        return image;
     }
 
     private Image getSprite() {
@@ -88,9 +89,6 @@ public class Entity implements Drawable {
          } else {
          spriteCount++;
          }*/
-        if (image == null) {
-            image = SpriteMap.getInstance().get(toString()).image;
-        }
         if (tileSize > world.getTileSize()) {
             tileSize = world.getTileSize();
             image = image.getScaledInstance(tileSize, tileSize, Image.SCALE_DEFAULT);
