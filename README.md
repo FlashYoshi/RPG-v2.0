@@ -24,7 +24,6 @@ Dependencies
 
 TODO
 ====
-* Create a dimension-asking screen when you select the editor.
 * Optimize a few bits and pieces.
 * Add more entities.
 * Gather a load of art and animations for them.
