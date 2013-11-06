@@ -20,10 +20,10 @@ But you're always accompanied by some cute (usually annoying) little "thing". So
 Dependencies
 ============
 * jdom-1.1.1
+* Java 7
 
 TODO
 ====
-* Implement load functionality for the editor.
 * Create a dimension-asking screen when you select the editor.
 * Optimize a few bits and pieces.
 * Add more entities.

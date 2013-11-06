@@ -9,7 +9,7 @@ import javax.swing.JFrame;
  */
 public abstract class Game {
 
-    private int delay = 1000 / 60;
+    private int delay = 1000 / 30;
     private boolean paused = false;
     private boolean over = false;
     private static final String TITLE = "GameEngine v2.0 \u00a9 Titouan Vervack";

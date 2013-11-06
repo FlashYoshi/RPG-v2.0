@@ -20,8 +20,8 @@ import org.jdom.output.XMLOutputter;
  */
 public class SaveLevel extends AbstractAction {
 
-    private WorldModel world;
-    private static final File HOME_DIR = new File(System.getProperty("user.home"));
+    private final WorldModel world;
+    public static final File HOME_DIR = new File(System.getProperty("user.home"));
 
     public SaveLevel(WorldModel world) {
         this.world = world;
@@ -31,9 +31,9 @@ public class SaveLevel extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
         JFileChooser fc = new JFileChooser(HOME_DIR);
         fc.setDialogTitle("Save your level!");
-        int knop = fc.showOpenDialog(null);
-        FileWriter writer;
+        int knop = fc.showSaveDialog(null);
         if (knop == JFileChooser.APPROVE_OPTION) {
+            FileWriter writer;
             try {
                 writer = new FileWriter(fc.getSelectedFile());
             } catch (IOException ex) {

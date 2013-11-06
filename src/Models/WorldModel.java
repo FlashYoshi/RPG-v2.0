@@ -1,10 +1,10 @@
 package Models;
 
-import Util.Layer;
-import MapsAndFactories.EntityFactory;
 import Entities.Entity;
 import Entities.Sea;
 import MapsAndFactories.DrawMap;
+import MapsAndFactories.EntityFactory;
+import Util.Layer;
 import Util.Viewport;
 import java.awt.Dimension;
 import java.util.HashMap;
@@ -39,16 +39,7 @@ public class WorldModel {
             throw new IllegalArgumentException("Dimension has to be devisable by " + tileSize + ".");
         }
         this.world = worldSize;
-        background = new Entity[worldSize.height][worldSize.width];
-        obstacles = new Entity[worldSize.height][worldSize.width];
-        sea = new Sea[worldSize.height][worldSize.width];
-
-        entities = EntityFactory.getInstance();
-        layers = new HashMap<>();
-        layers.put(Layer.SEA, sea);
-        layers.put(Layer.BACKGROUND, background);
-        layers.put(Layer.OBSTACLE, obstacles);
-        Viewport.getInstance().setWorld(this);
+        reset();
     }
 
     public int getTileSize() {
@@ -139,5 +130,18 @@ public class WorldModel {
 
     public void setButtonModel(ButtonModel model) {
         this.buttonModel = model;
+    }
+    
+    public final void reset(){
+        background = new Entity[world.height][world.width];
+        obstacles = new Entity[world.height][world.width];
+        sea = new Sea[world.height][world.width];
+
+        entities = EntityFactory.getInstance();
+        layers = new HashMap<>();
+        layers.put(Layer.SEA, sea);
+        layers.put(Layer.BACKGROUND, background);
+        layers.put(Layer.OBSTACLE, obstacles);
+        Viewport.getInstance().setWorld(this);
     }
 }
