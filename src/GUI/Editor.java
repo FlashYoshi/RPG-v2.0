@@ -22,41 +22,14 @@ import javax.swing.JTextField;
  */
 public class Editor {
 
+    private static final int DEFAULT_SIZE = 128;
+
     public Editor(JPanel panel, Game game) {
-        int selectedDimensionX = 128;
-        int selectedDimensionY = 128;
-        /* Display dimension selection screen */
-        JTextField fieldX = new JTextField(5);
-        JTextField fieldY = new JTextField(5);
-
-        JPanel dimPanel = new JPanel();
-        dimPanel.add(fieldX);
-        dimPanel.add(Box.createHorizontalStrut(5));
-        dimPanel.add(new JLabel("x"));
-        dimPanel.add(Box.createHorizontalStrut(5));
-        dimPanel.add(fieldY);
-
-        int result = JOptionPane.showConfirmDialog(null, dimPanel,
-                "Enter preferred dimensions", JOptionPane.OK_CANCEL_OPTION);
-        if (result == JOptionPane.OK_OPTION) {
-            try {
-                selectedDimensionX = Integer.parseInt(fieldX.getText());
-            } catch(NumberFormatException ex) {
-                System.err.println("X dimension is not a valid number. " + 
-                        "Picking default (" + selectedDimensionX + ").");
-            }
-            try {
-                selectedDimensionY = Integer.parseInt(fieldY.getText());
-            } catch (NumberFormatException ex) {
-                System.err.println("Y dimension is not a valid number. " + 
-                        "Picking default (" + selectedDimensionY + ").");
-            }
-        }
+        WorldModel world = createDimension(panel);
 
         JFrame frame = (JFrame) panel.getParent().getParent().getParent();
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         Dimension panelSize = panel.getSize();
-        WorldModel world = new WorldModel(selectedDimensionX, selectedDimensionY);
 
         Dimension d = new Dimension((int) (panelSize.width * 0.2), 52);
         JPanel listPanel = new JPanel();
@@ -84,5 +57,45 @@ public class Editor {
         frame.setResizable(false);
         frame.pack();
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }
+
+    private WorldModel createDimension(JPanel parent) {
+        for (int failureCount = 0; failureCount < 3; failureCount++) {
+            /* Display dimension selection screen */
+            JTextField fieldX = new JTextField(5);
+            JTextField fieldY = new JTextField(5);
+
+            JPanel dimPanel = new JPanel();
+            dimPanel.add(fieldX);
+            dimPanel.add(Box.createHorizontalStrut(5));
+            dimPanel.add(new JLabel("x"));
+            dimPanel.add(Box.createHorizontalStrut(5));
+            dimPanel.add(fieldY);
+
+            int result = JOptionPane.showConfirmDialog(parent, dimPanel,
+                    "Enter preferred dimensions", JOptionPane.OK_CANCEL_OPTION);
+            if (result == JOptionPane.OK_OPTION) {
+                WorldModel world;
+                int selectedDimensionX;
+                int selectedDimensionY;
+                try {
+                    selectedDimensionX = Integer.parseInt(fieldX.getText());
+                    selectedDimensionY = Integer.parseInt(fieldY.getText());
+                    world = new WorldModel(selectedDimensionX, selectedDimensionY);
+                } catch (IllegalArgumentException e) {
+                    JOptionPane.showMessageDialog(parent, "Invalid dimension entered! Both should be a number. " + e.getMessage(),
+                            "Invalid dimension!", JOptionPane.ERROR_MESSAGE);
+                    continue;
+                }
+                JOptionPane.showMessageDialog(parent, "The word was created successfully with size " + selectedDimensionX + ", " + selectedDimensionY + ".",
+                        "World created successfully!", JOptionPane.INFORMATION_MESSAGE);
+                return world;
+            } else {
+                break;
+            }
+        }
+        JOptionPane.showMessageDialog(parent, "Default world was created with size " + DEFAULT_SIZE + ", " + DEFAULT_SIZE + ".",
+                "Default world was made!", JOptionPane.INFORMATION_MESSAGE);
+        return new WorldModel(DEFAULT_SIZE, DEFAULT_SIZE);
     }
 }

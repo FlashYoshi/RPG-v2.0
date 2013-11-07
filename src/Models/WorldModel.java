@@ -28,11 +28,11 @@ public class WorldModel {
     private Dimension viewableSize;
     private ButtonModel buttonModel;
 
-    public WorldModel(int width, int height) {
+    public WorldModel(int width, int height) throws IllegalArgumentException {
         this(new Dimension(width, height));
     }
 
-    public WorldModel(Dimension worldSize) {
+    public WorldModel(Dimension worldSize) throws IllegalArgumentException {
         tileSize = STD_TILE_SIZE;
         if (worldSize.width % tileSize != 0
                 || worldSize.height % tileSize != 0) {
