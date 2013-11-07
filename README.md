@@ -24,6 +24,7 @@ Dependencies
 
 TODO
 ====
+* Fix focus on dimension asking screen
 * Optimize a few bits and pieces.
 * Add more entities.
 * Gather a load of art and animations for them.
