@@ -6,24 +6,57 @@ import Engine.Game;
 import Models.WorldModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * Wrapper class for the EditorPanel and EditorList
  *
- * @author FlashYoshi
+ * @author FlashYoshi, Mathieu De Coster
  */
 public class Editor {
 
     public Editor(JPanel panel, Game game) {
-        /*TODO: Display Dimension-selection screen first*/
+        int selectedDimensionX = 128;
+        int selectedDimensionY = 128;
+        /* Display dimension selection screen */
+        JTextField fieldX = new JTextField(5);
+        JTextField fieldY = new JTextField(5);
+
+        JPanel dimPanel = new JPanel();
+        dimPanel.add(fieldX);
+        dimPanel.add(Box.createHorizontalStrut(5));
+        dimPanel.add(new JLabel("x"));
+        dimPanel.add(Box.createHorizontalStrut(5));
+        dimPanel.add(fieldY);
+
+        int result = JOptionPane.showConfirmDialog(null, dimPanel,
+                "Enter preferred dimensions", JOptionPane.OK_CANCEL_OPTION);
+        if (result == JOptionPane.OK_OPTION) {
+            try {
+                selectedDimensionX = Integer.parseInt(fieldX.getText());
+            } catch(NumberFormatException ex) {
+                System.err.println("X dimension is not a valid number. " + 
+                        "Picking default (" + selectedDimensionX + ").");
+            }
+            try {
+                selectedDimensionY = Integer.parseInt(fieldY.getText());
+            } catch (NumberFormatException ex) {
+                System.err.println("Y dimension is not a valid number. " + 
+                        "Picking default (" + selectedDimensionY + ").");
+            }
+        }
+
         JFrame frame = (JFrame) panel.getParent().getParent().getParent();
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         Dimension panelSize = panel.getSize();
-        WorldModel world = new WorldModel(128, 128);
+        WorldModel world = new WorldModel(selectedDimensionX, selectedDimensionY);
 
         Dimension d = new Dimension((int) (panelSize.width * 0.2), 52);
         JPanel listPanel = new JPanel();
