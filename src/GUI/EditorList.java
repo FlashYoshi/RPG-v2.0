@@ -22,6 +22,7 @@ public class EditorList extends JList implements MouseListener {
 
     private ArrayList<Entity> listData = new ArrayList<>();
     private WorldModel world;
+    private int pressedKey;
 
     public EditorList(WorldModel world) {
         this.world = world;
@@ -32,10 +33,19 @@ public class EditorList extends JList implements MouseListener {
         addMouseListener(this);
     }
 
-    /*Change the cursor and save the selected Entity*/
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        pressedKey = e.getButton();
+    }
+
+    /*Change the cursor and save the selected Entity*/
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if (pressedKey == MouseEvent.BUTTON1) {
             Toolkit toolkit = Toolkit.getDefaultToolkit();
             Entity selected = (Entity) getSelectedValue();
             Cursor c = toolkit.createCustomCursor(selected.getAvatar(), new Point(0, 0), selected.toString());
@@ -47,14 +57,6 @@ public class EditorList extends JList implements MouseListener {
             getParent().getParent().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             clearSelection();
         }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
     }
 
     @Override
