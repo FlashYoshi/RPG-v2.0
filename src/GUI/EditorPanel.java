@@ -125,46 +125,60 @@ public class EditorPanel extends JPanel implements MouseListener, MouseMotionLis
     }
 
     @Override
+    public void mouseClicked(MouseEvent e) {
+        if (e.getButton() == MouseEvent.BUTTON1) {
+            int x = (e.getX() / world.getTileSize()) + buttonModel.getXOffset();
+            int y = (e.getY() / world.getTileSize()) + buttonModel.getYOffset();
+            addEntity(x, y);
+        } else if (e.getButton() == MouseEvent.BUTTON3) {
+            resetCursor();
+        }
+    }
+
+    @Override
     public void mouseDragged(MouseEvent e) {
         if (pressedKey == MouseEvent.BUTTON1) {
-            Entity cursor = world.getCursor();
-            if (cursor == null) {
-                return;
-            }
-
-            Viewport viewport = Viewport.getInstance();
             int x = (e.getX() / world.getTileSize()) + buttonModel.getXOffset();
             int y = (e.getY() / world.getTileSize()) + buttonModel.getYOffset();
 
-            if ((x != prevX || y != prevY)
-                    && (x <= viewport.end.x && y <= viewport.end.y)
-                    && (x >= viewport.start.x && y >= viewport.start.y)) {
-                world.addEntity(cursor.toString(), x, y);
-
+            if ((x != prevX || y != prevY)) {
+                addEntity(x, y);
+                prevX = x;
+                prevY = y;
             }
+        }else if (pressedKey == MouseEvent.BUTTON3) {
+            resetCursor();
+        }
+    }
 
-            prevX = x;
-            prevY = y;
-        } else if (pressedKey == MouseEvent.BUTTON3) {
+    private void addEntity(int x, int y) {
+        Entity cursor = world.getCursor();
+        if (cursor == null) {
+            return;
+        }
+
+        Viewport viewport = Viewport.getInstance();
+        if ((x <= viewport.end.x && y <= viewport.end.y)
+                && (x >= viewport.start.x && y >= viewport.start.y)) {
+            world.addEntity(cursor.toString(), x, y);
+        }
+    }
+    
+    private void resetCursor() {
             world.setCursor(null);
             getParent().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             list.clearSelection();
-        }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
     }
-    
+
     @Override
     public void mouseEntered(MouseEvent e) {
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-    }
-    
-    @Override
-    public void mouseClicked(MouseEvent e) {
     }
 }
