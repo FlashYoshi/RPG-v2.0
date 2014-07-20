@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 /**
  * WARNING: Be sure you don't need any of your old keylisteners whilst using the
- * TList, it wil temporarily disable them. WARNING: Be sure you don't need the
+ * TList, it will temporarily disable them. WARNING: Be sure you don't need the
  * enter key either, this key will also temporarily be disabled. DESTRUCTOR:
  * Don't forget to call detach() when you're done with the list
  *

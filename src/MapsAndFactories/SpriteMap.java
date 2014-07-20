@@ -21,7 +21,7 @@ public class SpriteMap {
         sprites = new HashMap<>();
         sprites.put("Grass", new SpriteInfo("../images/Grass.png", 1));
         sprites.put("Sand", new SpriteInfo("../images/Sand.png", 1));
-        sprites.put("Sea", new SpriteInfo("../images/Sand.png", 1));
+        sprites.put("Sea", new SpriteInfo("../images/Sea.png", 1));
         sprites.put("Tree", new SpriteInfo("../images/Tree.png", 1));
     }
 

@@ -16,6 +16,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.ImageIcon;
@@ -28,7 +29,7 @@ import javax.swing.JPanel;
  *
  * @author FlashYoshi
  */
-public class EditorPanel extends JPanel implements MouseListener {
+public class EditorPanel extends JPanel implements MouseListener, MouseMotionListener {
 
     private DrawMap drawModel;
     private WorldModel world;
@@ -36,8 +37,9 @@ public class EditorPanel extends JPanel implements MouseListener {
     private JButton[] buttons;
     private Bounds[] bounds;
     private JList list;
-    private int xDrag;
-    private int yDrag;
+    private int prevX;
+    private int prevY;
+    private int pressedKey;
 
     public EditorPanel(Dimension d, WorldModel world, JList list, Game game) {
         this.world = world;
@@ -54,6 +56,7 @@ public class EditorPanel extends JPanel implements MouseListener {
         setLayout(null);
         initializeButtons(d);
         addMouseListener(this);
+        addMouseMotionListener(this);
     }
 
     private void initializeButtons(Dimension d) {
@@ -112,63 +115,37 @@ public class EditorPanel extends JPanel implements MouseListener {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-        /*if (e.getButton() == MouseEvent.BUTTON1) {
-            Entity cursor = world.getCursor();
-            if (cursor == null) {
-                return;
-            }
-            int x = (e.getX() / world.getTileSize()) + buttonModel.getXOffset();
-            int y = (e.getY() / world.getTileSize()) + buttonModel.getYOffset();
-            if (x < Viewport.getInstance().end.x && y < Viewport.getInstance().end.y) {
-                world.addEntity(cursor.toString(), x, y);
-            }
-        } else if (e.getButton() == MouseEvent.BUTTON3) {
-            world.setCursor(null);
-            getParent().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            list.clearSelection();
-        }*/
-    }
-
-    @Override
     public void mousePressed(MouseEvent e) {
-        xDrag = (e.getX() / world.getTileSize()) + buttonModel.getXOffset();
-        yDrag = (e.getY() / world.getTileSize()) + buttonModel.getYOffset();
+        pressedKey = e.getButton();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
+        pressedKey = 0;
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (pressedKey == MouseEvent.BUTTON1) {
             Entity cursor = world.getCursor();
             if (cursor == null) {
                 return;
             }
 
+            Viewport viewport = Viewport.getInstance();
             int x = (e.getX() / world.getTileSize()) + buttonModel.getXOffset();
             int y = (e.getY() / world.getTileSize()) + buttonModel.getYOffset();
 
-            //Vertical dragging
-            if (x == xDrag) {
-                int biggest = (y > yDrag) ? y : yDrag;
-                int smallest = (y < yDrag) ? y : yDrag;
-                for (int i = smallest; i <= biggest; i++) {
-                    if (x < Viewport.getInstance().end.x && i < Viewport.getInstance().end.y) {
-                        world.addEntity(cursor.toString(), x, i);
-                    }
+            if ((x != prevX || y != prevY)
+                    && (x <= viewport.end.x && y <= viewport.end.y)
+                    && (x >= viewport.start.x && y >= viewport.start.y)) {
+                world.addEntity(cursor.toString(), x, y);
 
-                }
-            } //Horizontal dragging 
-            else if (y == yDrag) {
-                int biggest = (x > xDrag) ? x : xDrag;
-                int smallest = (x < xDrag) ? x : xDrag;
-                for (int i = smallest; i <= biggest; i++) {
-                    if (i < Viewport.getInstance().end.x && y < Viewport.getInstance().end.y) {
-                        world.addEntity(cursor.toString(), i, y);
-                    }
-
-                }
             }
-        } else if (e.getButton() == MouseEvent.BUTTON3) {
+
+            prevX = x;
+            prevY = y;
+        } else if (pressedKey == MouseEvent.BUTTON3) {
             world.setCursor(null);
             getParent().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             list.clearSelection();
@@ -176,10 +153,18 @@ public class EditorPanel extends JPanel implements MouseListener {
     }
 
     @Override
+    public void mouseMoved(MouseEvent e) {
+    }
+    
+    @Override
     public void mouseEntered(MouseEvent e) {
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
+    }
+    
+    @Override
+    public void mouseClicked(MouseEvent e) {
     }
 }

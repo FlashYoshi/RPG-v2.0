@@ -42,11 +42,11 @@ public class LoadLevel extends AbstractAction {
             Element root = document.getRootElement();
             List entities = root.getChildren();
             world.reset();
-            for (int i = 0; i < entities.size(); i++) {
-                Element el = (Element) entities.get(i);
+            for (Object entitie : entities) {
+                Element el = (Element) entitie;
                 String type = el.getAttributeValue("type");
-                int x = Integer.valueOf(el.getAttributeValue("x")).intValue();
-                int y = Integer.valueOf(el.getAttributeValue("y")).intValue();
+                int x = Integer.parseInt(el.getAttributeValue("x"));
+                int y = Integer.parseInt(el.getAttributeValue("y"));
                 world.addEntity(type, x, y);
             }
         } catch (JDOMException | IOException ex) {

@@ -8,8 +8,8 @@ import java.awt.Dimension;
  *
  * Model used for the editor
  *
- * @param XOffset: The amount of screens we are from the far left edge
- * @param YOffset: The amount of screen we are from the top edge
+ * @var XOffset: The amount of screens we are from the far left edge
+ * @var YOffset: The amount of screens we are from the top edge
  * @author FlashYoshi
  */
 public class ButtonModel {
@@ -54,17 +54,9 @@ public class ButtonModel {
         if (side == 1) {
             if (XOffset == 0 && xTiles * 2 < maxX) {
                 return true;
-            } else if (xTiles * 2 + XOffset < maxX) {
-                return true;
-            } else {
-                return false;
-            }
+            } else return xTiles * 2 + XOffset < maxX;
         } else {
-            if (XOffset == 0) {
-                return false;
-            } else {
-                return true;
-            }
+            return XOffset != 0;
         }
     }
 
@@ -85,17 +77,9 @@ public class ButtonModel {
         if (side == 1) {
             if (YOffset == 0 && yTiles * 2 < maxY) {
                 return true;
-            } else if (yTiles * 2 + YOffset < maxY) {
-                return true;
-            } else {
-                return false;
-            }
+            } else return yTiles * 2 + YOffset < maxY;
         } else {
-            if (YOffset == 0) {
-                return false;
-            } else {
-                return true;
-            }
+            return YOffset != 0;
         }
     }
 

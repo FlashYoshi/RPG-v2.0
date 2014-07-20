@@ -3,7 +3,7 @@ package Interfaces;
 import java.awt.Graphics2D;
 
 /**
- * Interface which every-non-yet-existant object which wishes to be painted
+ * Interface which every-non-yet-existent object which wishes to be painted
  * should implement
  *
  * @author FlashYoshi
