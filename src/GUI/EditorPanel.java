@@ -3,6 +3,7 @@ package GUI;
 import Actions.ButtonAction;
 import Engine.Game;
 import Entities.Entity;
+import Entities.Eraser;
 import Interfaces.Drawable;
 import MapsAndFactories.DrawMap;
 import Models.ButtonModel;
@@ -129,7 +130,7 @@ public class EditorPanel extends JPanel implements MouseListener, MouseMotionLis
         if (e.getButton() == MouseEvent.BUTTON1) {
             int x = (e.getX() / world.getTileSize()) + buttonModel.getXOffset();
             int y = (e.getY() / world.getTileSize()) + buttonModel.getYOffset();
-            addEntity(x, y);
+            handleClick(x, y);
         } else if (e.getButton() == MouseEvent.BUTTON3) {
             resetCursor();
         }
@@ -142,32 +143,36 @@ public class EditorPanel extends JPanel implements MouseListener, MouseMotionLis
             int y = (e.getY() / world.getTileSize()) + buttonModel.getYOffset();
 
             if ((x != prevX || y != prevY)) {
-                addEntity(x, y);
+                handleClick(x, y);
                 prevX = x;
                 prevY = y;
             }
-        }else if (pressedKey == MouseEvent.BUTTON3) {
+        } else if (pressedKey == MouseEvent.BUTTON3) {
             resetCursor();
         }
     }
 
-    private void addEntity(int x, int y) {
+    private void handleClick(int x, int y) {
         Entity cursor = world.getCursor();
         if (cursor == null) {
             return;
         }
 
         Viewport viewport = Viewport.getInstance();
-        if ((x <= viewport.end.x && y <= viewport.end.y)
-                && (x >= viewport.start.x && y >= viewport.start.y)) {
-            world.addEntity(cursor.toString(), x, y);
+        if (cursor.toString().equals(Eraser.ERASE)) {
+            world.removeEntity(x, y);
+        } else {
+            if ((x <= viewport.end.x && y <= viewport.end.y)
+                    && (x >= viewport.start.x && y >= viewport.start.y)) {
+                world.addEntity(cursor.toString(), x, y);
+            }
         }
     }
-    
+
     private void resetCursor() {
-            world.setCursor(null);
-            getParent().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            list.clearSelection();
+        world.setCursor(null);
+        getParent().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        list.clearSelection();
     }
 
     @Override

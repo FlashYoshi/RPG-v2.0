@@ -8,6 +8,7 @@ import Util.Layer;
 import Util.Viewport;
 import java.awt.Dimension;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Main model of the game. It represents the entire world.
@@ -36,7 +37,7 @@ public class WorldModel {
         tileSize = STD_TILE_SIZE;
         if (worldSize.width % tileSize != 0
                 || worldSize.height % tileSize != 0) {
-            throw new IllegalArgumentException("Dimension has to be devisable by " + tileSize + ".");
+            throw new IllegalArgumentException("Dimension has to be divisible by " + tileSize + ".");
         }
         this.world = worldSize;
         reset();
@@ -100,6 +101,14 @@ public class WorldModel {
         return result;
     }
 
+    public void removeEntity(int x, int y) {
+        for (Layer layer : layers.keySet()) {
+            Entity entity = layers.get(layer)[x][y];
+            DrawMap.getInstance().removeToDraw(entity, layer);
+            layers.get(layer)[x][y] = null;
+        }
+    }
+
     public Entity getCursor() {
         return selected;
     }
@@ -131,8 +140,8 @@ public class WorldModel {
     public void setButtonModel(ButtonModel model) {
         this.buttonModel = model;
     }
-    
-    public final void reset(){
+
+    public final void reset() {
         background = new Entity[world.height][world.width];
         obstacles = new Entity[world.height][world.width];
         sea = new Sea[world.height][world.width];

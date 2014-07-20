@@ -19,6 +19,7 @@ public class SpriteMap {
     private SpriteMap() {
         /*TODO: Add real sprites*/
         sprites = new HashMap<>();
+        sprites.put("Eraser", new SpriteInfo("../images/Eraser.png", 1));
         sprites.put("Grass", new SpriteInfo("../images/Grass.png", 1));
         sprites.put("Sand", new SpriteInfo("../images/Sand.png", 1));
         sprites.put("Sea", new SpriteInfo("../images/Sea.png", 1));
